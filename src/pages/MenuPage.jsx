@@ -20,8 +20,6 @@ export default function MenuPage() {
     }
   }
 
-  console.log(menus)
-
   return (
     <section className="mx-auto max-w-7xl px-6 py-24">
       <div className="mb-14 text-center">
@@ -31,7 +29,7 @@ export default function MenuPage() {
       </div>
 
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {menus.map((item) => (
+        {menus && menus.map((item) => (
           <MenuCard
             key={item.id}
             item={item}
