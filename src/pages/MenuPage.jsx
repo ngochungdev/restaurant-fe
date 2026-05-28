@@ -14,7 +14,7 @@ export default function MenuPage() {
   const fetchMenus = async () => {
     try {
       const data = await menuService.getAll()
-      setMenus(data)
+      setMenus(Array.isArray(data) ? data : data.items || data.data || [])
     } catch (error) {
       console.error(error)
     }
