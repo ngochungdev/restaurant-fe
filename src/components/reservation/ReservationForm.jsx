@@ -1,0 +1,144 @@
+import { useState } from "react";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+
+import reservationService from "../../services/reservationService";
+import { useLanguage } from "../../contexts/LanguageContext";
+
+export default function ReservationForm() {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { t } = useLanguage();
+
+
+  const [formData, setFormData] = useState({
+    customerName: "",
+    phone: "",
+    reservationDate: "",
+    reservationTime: "",
+    totalGuest: "",
+    note: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "totalGuest") {
+      const digitsOnly = value.replace(/\D/g, "");
+      setFormData({
+        ...formData,
+        totalGuest: digitsOnly,
+      });
+      return;
+    }
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+
+      const todayStr = new Date().toISOString().split("T")[0];
+      if (!formData.reservationDate || formData.reservationDate < todayStr) {
+        toast.error(t('dateFromToday'));
+        setLoading(false);
+        return;
+      }
+
+      const reservationDateTime = `${formData.reservationDate}T${formData.reservationTime}:00`;
+
+      await reservationService.createReservation({
+        customerName: formData.customerName,
+        phone: formData.phone,
+        totalGuest: Number(formData.totalGuest),
+        reservationDate: reservationDateTime,
+        note: formData.note,
+      });
+
+      toast.success(t('reservationSuccess'));
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      toast.error(t('reservationFailed'));
+    } finally {
+      setLoading(false);
+    }
+  };
+  return (
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <input
+        name="customerName"
+        placeholder={t('fullName')}
+        value={formData.customerName}
+        onChange={handleChange}
+        className="h-14 w-full rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
+      />
+
+      <input
+        name="phone"
+        placeholder={t('phoneNumber')}
+        value={formData.phone}
+        onChange={handleChange}
+        className="h-14 w-full rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
+      />
+
+      <div className="grid grid-cols-2 gap-4">
+        <input
+          type="date"
+          name="reservationDate"
+          value={formData.reservationDate}
+          aria-label={t('selectDate')}
+          onChange={handleChange}
+          onFocus={(e) => e.target.showPicker?.()}
+          min={new Date().toISOString().split("T")[0]}
+          className="h-14 rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
+        />
+
+        <input
+          type="time"
+          name="reservationTime"
+          value={formData.reservationTime}
+          aria-label={t('selectTime')}
+          onChange={handleChange}
+          onFocus={(e) => e.target.showPicker?.()}
+          className="h-14 rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
+        />
+      </div>
+
+      <input
+        type="text"
+        name="totalGuest"
+        placeholder={t('numberOfGuests')}
+        value={formData.totalGuest}
+        onChange={handleChange}
+        inputMode="numeric"
+        pattern="[0-9]*"
+        min={1}
+        className="h-14 w-full rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
+      />
+
+      <textarea
+        name="note"
+        placeholder={t('specialRequest')}
+        value={formData.note}
+        onChange={handleChange}
+        rows={5}
+        className="w-full rounded-xl border border-gray-200 bg-[#faf7f2] px-4 py-3 outline-none focus:border-orange-500"
+      />
+
+      <button
+        type="submit"
+        className="h-14 w-full rounded-xl bg-orange-600 text-white font-medium hover:bg-orange-700 transition"
+      >
+        {loading ? t('submitting') : t('reserveNow')}
+      </button>
+    </form>
+  );
+}
