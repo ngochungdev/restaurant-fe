@@ -38,6 +38,7 @@ const en = {
   reserveNow: "Reserve Now",
   submitting: "Submitting...",
   fullName: "Full Name",
+  email: "Email",
   phoneNumber: "Phone Number",
   selectDate: "Select Date",
   selectTime: "Select Time",

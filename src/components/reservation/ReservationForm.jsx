@@ -22,6 +22,7 @@ export default function ReservationForm() {
 
   const [formData, setFormData] = useState({
     customerName: "",
+    email: "",
     phone: "",
     reservationDate: "",
     reservationTime: "",
@@ -60,6 +61,7 @@ export default function ReservationForm() {
 
     createReservationMutation.mutate({
       customerName: formData.customerName,
+      email: formData.email,
       phone: formData.phone,
       totalGuest: Number(formData.totalGuest),
       reservationDate: reservationDateTime,
@@ -73,6 +75,16 @@ export default function ReservationForm() {
         placeholder={t('fullName')}
         value={formData.customerName}
         onChange={handleChange}
+        className="h-14 w-full rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
+      />
+
+      <input
+        type="email"
+        name="email"
+        placeholder={t('email')}
+        value={formData.email}
+        onChange={handleChange}
+        autoComplete="email"
         className="h-14 w-full rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
       />
 

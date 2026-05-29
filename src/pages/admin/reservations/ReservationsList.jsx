@@ -73,6 +73,11 @@ export default function ReservationsList() {
                 <div className="text-sm text-gray-600">
                   {t("phoneNumber")}: {r.phone}
                 </div>
+                {r.email && (
+                  <div className="text-sm text-gray-600">
+                    {t("email")}: {r.email}
+                  </div>
+                )}
                 <div className="text-sm text-gray-600">
                   {t("numberOfGuests")}: {r.totalGuest}
                 </div>

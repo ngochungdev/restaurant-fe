@@ -38,6 +38,7 @@ const vi = {
   reserveNow: "Đặt ngay",
   submitting: "Đang gửi...",
   fullName: "Họ và tên",
+  email: "Email",
   phoneNumber: "Số điện thoại",
   selectDate: "Chọn ngày",
   selectTime: "Chọn giờ",
