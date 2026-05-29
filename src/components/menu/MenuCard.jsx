@@ -1,10 +1,14 @@
-export default function MenuCard({ item }) {
+export default function MenuCard({ item, onClick }) {
   return (
-    <div className="overflow-hidden rounded-3xl border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+    <button
+      type="button"
+      onClick={() => onClick?.(item)}
+      className="overflow-hidden rounded-3xl border bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
+    >
       <img
         src={item.image}
         alt={item.name}
-        className="h-64 w-full object-cover"
+        className="h-auto w-full bg-gray-50 object-contain"
       />
 
       <div className="p-6">
@@ -22,6 +26,6 @@ export default function MenuCard({ item }) {
           {item.description}
         </p>
       </div>
-    </div>
+    </button>
   )
 }

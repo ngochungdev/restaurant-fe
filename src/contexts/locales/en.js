@@ -78,6 +78,17 @@ const en = {
   experienceDining: "Experience Fine Dining",
   experienceText: "Premium food and unforgettable dining experience.",
   previewImage: "Image preview",
+  close: "Close",
+  editMenu: "Edit item",
+  deleteMenu: "Delete item",
+  saveChanges: "Save changes",
+  cancel: "Cancel",
+  fillMenuFields: "Please fill in all menu fields.",
+  updateMenuSuccess: "Menu item updated successfully.",
+  updateMenuFail: "Failed to update menu item. Please try again.",
+  deleteMenuSuccess: "Menu item deleted successfully.",
+  deleteMenuFail: "Failed to delete menu item. Please try again.",
+  confirmDeleteMenu: "Are you sure you want to delete this menu item?",
 };
 
 export default en;

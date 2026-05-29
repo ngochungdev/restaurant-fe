@@ -78,6 +78,17 @@ const vi = {
   experienceDining: "Trải nghiệm ẩm thực đỉnh cao",
   experienceText: "Món ngon thượng hạng và trải nghiệm ẩm thực khó quên.",
   previewImage: "Xem trước hình ảnh",
+  close: "Đóng",
+  editMenu: "Sửa món",
+  deleteMenu: "Xóa món",
+  saveChanges: "Lưu thay đổi",
+  cancel: "Hủy",
+  fillMenuFields: "Vui lòng điền đầy đủ thông tin món ăn.",
+  updateMenuSuccess: "Đã cập nhật món thành công.",
+  updateMenuFail: "Cập nhật món thất bại. Vui lòng thử lại.",
+  deleteMenuSuccess: "Đã xóa món thành công.",
+  deleteMenuFail: "Xóa món thất bại. Vui lòng thử lại.",
+  confirmDeleteMenu: "Bạn có chắc muốn xóa món này?",
 };
 
 export default vi;
