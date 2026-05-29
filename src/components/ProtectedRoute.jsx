@@ -13,7 +13,11 @@ export default function ProtectedRoute({
       : null;
 
   if (!user) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/admin/login" />;
+  }
+
+  if (user.role !== "ADMIN") {
+    return <Navigate to="/" />;
   }
 
   return children;

@@ -2,13 +2,22 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
-import reservationService from "../../services/reservationService";
 import { useLanguage } from "../../contexts/LanguageContext";
+import { useCreateReservationMutation } from "../../hooks/useReservationQueries";
 
 export default function ReservationForm() {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const createReservationMutation = useCreateReservationMutation({
+    onSuccess: () => {
+      toast.success(t('reservationSuccess'));
+      navigate("/");
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error(t('reservationFailed'));
+    },
+  });
 
 
   const [formData, setFormData] = useState({
@@ -41,35 +50,21 @@ export default function ReservationForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      setLoading(true);
-
-      const todayStr = new Date().toISOString().split("T")[0];
-      if (!formData.reservationDate || formData.reservationDate < todayStr) {
-        toast.error(t('dateFromToday'));
-        setLoading(false);
-        return;
-      }
-
-      const reservationDateTime = `${formData.reservationDate}T${formData.reservationTime}:00`;
-
-      await reservationService.createReservation({
-        customerName: formData.customerName,
-        phone: formData.phone,
-        totalGuest: Number(formData.totalGuest),
-        reservationDate: reservationDateTime,
-        note: formData.note,
-      });
-
-      toast.success(t('reservationSuccess'));
-
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-      toast.error(t('reservationFailed'));
-    } finally {
-      setLoading(false);
+    const todayStr = new Date().toISOString().split("T")[0];
+    if (!formData.reservationDate || formData.reservationDate < todayStr) {
+      toast.error(t('dateFromToday'));
+      return;
     }
+
+    const reservationDateTime = `${formData.reservationDate}T${formData.reservationTime}:00`;
+
+    createReservationMutation.mutate({
+      customerName: formData.customerName,
+      phone: formData.phone,
+      totalGuest: Number(formData.totalGuest),
+      reservationDate: reservationDateTime,
+      note: formData.note,
+    });
   };
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
@@ -135,9 +130,10 @@ export default function ReservationForm() {
 
       <button
         type="submit"
+        disabled={createReservationMutation.isPending}
         className="h-14 w-full rounded-xl bg-orange-600 text-white font-medium hover:bg-orange-700 transition"
       >
-        {loading ? t('submitting') : t('reserveNow')}
+        {createReservationMutation.isPending ? t('submitting') : t('reserveNow')}
       </button>
     </form>
   );

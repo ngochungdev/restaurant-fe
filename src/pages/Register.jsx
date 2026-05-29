@@ -27,7 +27,7 @@ export default function Register() {
       setLoading(true);
       await authService.register(form);
       toast.success(t('registerSuccess'));
-      navigate("/login");
+      navigate("/admin/login");
     } catch (err) {
       console.error(err);
       toast.error(t('registerFailed'));
@@ -68,7 +68,7 @@ export default function Register() {
 
         <div className="mt-4 text-center text-sm text-gray-600">
           {t('alreadyHaveAccount')}{' '}
-          <button type="button" className="text-emerald-600 hover:underline" onClick={() => navigate('/login')}>
+          <button type="button" className="text-emerald-600 hover:underline" onClick={() => navigate('/admin/login')}>
             {t('signIn')}
           </button>
         </div>

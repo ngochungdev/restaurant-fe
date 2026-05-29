@@ -1,54 +1,60 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Navbar from "../components/layout/Navbar";
-import Footer from "../components/layout/Footer";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 
 import HomePage from "../pages/HomePage";
 import MenuPage from "../pages/MenuPage";
 import AboutUsPage from "../pages/AboutUsPage";
 import ReservationPage from "../pages/ReservationPage";
 import Login from "../pages/Login";
-import Register from "../pages/Register";
-import AdminMenu from "../pages/AdminMenu";
-import ReservationList from "../components/reservation/ReservationsList";
+import ReservationList from "../pages/admin/reservations/ReservationsList";
 import ProtectedRoute from "../components/ProtectedRoute";
+import PublicLayout from "../components/layout/PublicLayout";
+import AdminLayout from "../components/layout/AdminLayout";
+import CategoriesIndex from "../pages/admin/categories/CategoriesIndex";
+import CategoryAdd from "../pages/admin/categories/CategoryAdd";
+import CategoryDetail from "../pages/admin/categories/CategoryDetail";
+import CategoryEdit from "../pages/admin/categories/CategoryEdit";
+import MenuIndex from "../pages/admin/menu/MenuIndex";
+import MenuAdd from "../pages/admin/menu/MenuAdd";
+import MenuDetail from "../pages/admin/menu/MenuDetail";
+import MenuEdit from "../pages/admin/menu/MenuEdit";
 
 export default function Router() {
   return (
     <BrowserRouter>
-      <Navbar />
-
       <Routes>
-        <Route path="/" element={<HomePage />} />
-
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/admin/menu"
-          element={
-            <ProtectedRoute>
-              <AdminMenu />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/login" element={<Navigate to="/admin/login" replace />} />
+        <Route path="/admin/login" element={<Login />} />
+        {/* <Route path="/register" element={<Register />} /> */}
 
         <Route
-          path="/admin/reservations"
+          path="/admin"
           element={
             <ProtectedRoute>
-              <ReservationList />
+              <AdminLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<Navigate to="/admin/menu" replace />} />
+          <Route path="menu" element={<MenuIndex />} />
+          <Route path="menu/add" element={<MenuAdd />} />
+          <Route path="menu/:id" element={<MenuDetail />} />
+          <Route path="menu/:id/edit" element={<MenuEdit />} />
+          <Route path="categories" element={<CategoriesIndex />} />
+          <Route path="categories/add" element={<CategoryAdd />} />
+          <Route path="categories/:id" element={<CategoryDetail />} />
+          <Route path="categories/:id/edit" element={<CategoryEdit />} />
+          <Route path="reservations" element={<ReservationList />} />
+        </Route>
 
-        <Route path="/menu" element={<MenuPage />} />
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/about-us" element={<AboutUsPage />} />
+          <Route path="/reservation" element={<ReservationPage />} />
+        </Route>
 
-        <Route path="/about-us" element={<AboutUsPage />} />
-
-        <Route path="/reservation" element={<ReservationPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-
-      <Footer />
     </BrowserRouter>
   );
 }

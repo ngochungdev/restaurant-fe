@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext'
+import { restaurantConfig } from '../config/restaurant'
 
 export default function HomePage() {
   const { t } = useLanguage()
@@ -7,8 +8,8 @@ export default function HomePage() {
   return (
     <section className="relative h-[90vh] overflow-hidden">
       <img
-        src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1400&auto=format&fit=crop"
-        alt="restaurant"
+        src={restaurantConfig.heroImage}
+        alt={restaurantConfig.name}
         className="h-full w-full object-cover"
       />
 

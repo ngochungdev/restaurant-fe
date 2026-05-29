@@ -1,6 +1,6 @@
 import ReservationForm from '../components/reservation/ReservationForm'
-import ReservationList from '../components/reservation/ReservationsList'
 import { useLanguage } from '../contexts/LanguageContext'
+import { restaurantConfig } from '../config/restaurant'
 
 export default function ReservationPage() {
   const { t } = useLanguage()
@@ -11,7 +11,8 @@ export default function ReservationPage() {
     {/* HERO */}
     <section className="relative h-100 overflow-hidden">
       <img
-        src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1400&auto=format&fit=crop"
+        src={restaurantConfig.heroImage}
+        alt={restaurantConfig.name}
         className="h-full w-full object-cover"
       />
 
@@ -20,7 +21,7 @@ export default function ReservationPage() {
       <div className="absolute inset-0 flex items-center justify-center text-center text-white">
         <div>
           <p className="mb-4 text-sm tracking-[6px] uppercase">
-            Bella Restaurant
+            {restaurantConfig.name}
           </p>
           <h1 className="text-5xl font-light md:text-6xl">
             {t('reservationHeader')}
@@ -49,18 +50,18 @@ export default function ReservationPage() {
         <div className="mt-10 space-y-6 border-l border-orange-300 pl-6">
           <div>
             <h3 className="font-semibold">{t('openingHours')}</h3>
-            <p className="text-gray-600">10:00 AM - 11:00 PM</p>
+            <p className="text-gray-600">{restaurantConfig.openingHours}</p>
           </div>
 
           <div>
             <h3 className="font-semibold">{t('contact')}</h3>
-            <p className="text-gray-600">+84 123 456 789</p>
+            <p className="text-gray-600">{restaurantConfig.phone}</p>
           </div>
 
           <div>
             <h3 className="font-semibold">{t('address')}</h3>
             <p className="text-gray-600">
-              123 Food Street, Da Nang
+              {restaurantConfig.fullAddress}
             </p>
           </div>
         </div>

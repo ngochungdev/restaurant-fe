@@ -88,7 +88,7 @@ export default function Login() {
           {loading ? t('signingIn') : t('signIn')}
         </button>
 
-        <div className="mt-4 text-center text-sm text-gray-600">
+        {/* <div className="mt-4 text-center text-sm text-gray-600">
           {t('noAccountYet')}{' '}
           <button
             type="button"
@@ -97,7 +97,7 @@ export default function Login() {
           >
             {t('signUp')}
           </button>
-        </div>
+        </div> */}
       </form>
     </div>
   );
