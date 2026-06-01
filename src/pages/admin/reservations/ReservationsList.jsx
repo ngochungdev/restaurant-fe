@@ -6,11 +6,15 @@ import {
   useRejectReservationMutation,
   useReservationsQuery,
 } from "../../../hooks/useReservationQueries";
+import { useReservationSocket } from "../../../hooks/useReservationSocket";
 
 export default function ReservationsList() {
   const user = useAuthStore((s) => s.user);
   const isAdmin = user && user.role === "ADMIN";
   const { t } = useLanguage();
+
+  useReservationSocket({ enabled: isAdmin });
+
   const {
     data: reservations = [],
     isLoading: loading,
