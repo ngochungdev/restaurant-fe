@@ -65,7 +65,7 @@ export default function HomePage() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
-              to="/reservation"
+              to="/reservation#reservation-form"
               className="rounded-full bg-orange-500 px-8 py-4 text-lg font-semibold text-white shadow-lg transition hover:bg-orange-600"
             >
               {t('bookTable')}
@@ -99,7 +99,7 @@ export default function HomePage() {
               {t('viewMenuDemo')}
             </Link>
             <Link
-              to="/reservation"
+              to="/reservation#reservation-form"
               className="rounded-full border border-stone-300 px-6 py-3 font-semibold text-stone-900 transition hover:border-orange-500 hover:text-orange-600"
             >
               {t('viewBookingDemo')}

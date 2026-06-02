@@ -69,7 +69,7 @@ export default function ReservationPage() {
       </div>
 
       {/* RIGHT FORM */}
-      <div className="bg-white rounded-[30px] p-10 shadow-xl">
+      <div id="reservation-form" className="scroll-mt-28 bg-white rounded-[30px] p-10 shadow-xl">
         <h2 className="text-2xl font-light text-center mb-8">{t('bookATable')}</h2>
 
         <ReservationForm />

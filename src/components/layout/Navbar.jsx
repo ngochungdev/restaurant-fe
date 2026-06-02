@@ -21,13 +21,13 @@ export default function Navbar() {
           <Link to="/">{t('home')}</Link>
           <Link to="/menu">{t('menu')}</Link>
           <Link to="/about-us">{t('aboutUs')}</Link>
-          <Link to="/reservation">{t('reservation')}</Link>
-          <a
-            href="/#demo-request"
+          <Link to="/reservation#reservation-form">{t('reservation')}</Link>
+          <Link
+            to="/#demo-request"
             className="rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
           >
             {t('requestDemo')}
-          </a>
+          </Link>
 
           <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-2 py-1">
             <button
@@ -72,14 +72,14 @@ export default function Navbar() {
               <Link to="/" onClick={() => setOpen(false)} className="py-2">{t('home')}</Link>
               <Link to="/menu" onClick={() => setOpen(false)} className="py-2">{t('menu')}</Link>
               <Link to="/about-us" onClick={() => setOpen(false)} className="py-2">{t('aboutUs')}</Link>
-              <Link to="/reservation" onClick={() => setOpen(false)} className="py-2">{t('reservation')}</Link>
-              <a
-                href="/#demo-request"
+              <Link to="/reservation#reservation-form" onClick={() => setOpen(false)} className="py-2">{t('reservation')}</Link>
+              <Link
+                to="/#demo-request"
                 onClick={() => setOpen(false)}
                 className="rounded-full bg-orange-500 px-4 py-3 text-center font-semibold text-white"
               >
                 {t('requestDemo')}
-              </a>
+              </Link>
 
               <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-2 py-1">
                 <button
