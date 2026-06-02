@@ -12,6 +12,8 @@ export const queryClient = new QueryClient({
 
 export const queryKeys = {
   categories: ["categories"],
+  leads: ["leads"],
   menus: ["menus"],
   reservations: ["reservations"],
+  settings: ["settings"],
 };

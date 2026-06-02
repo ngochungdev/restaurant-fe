@@ -79,8 +79,70 @@ const en = {
   aboutText:
     "Bella Restaurant creates unforgettable dining experiences using premium ingredients and modern cooking techniques.",
   bookTableHero: "Book Table",
-  experienceDining: "Experience Fine Dining",
-  experienceText: "Premium food and unforgettable dining experience.",
+  experienceDining: "A restaurant website with online menu and table booking",
+  experienceText:
+    "This is a demo restaurant website that can be customized with your client's logo, photos, menu, and brand content.",
+  restaurantWebsiteDemo: "Restaurant website demo",
+  requestDemo: "Request demo",
+  forRestaurantOwners: "For restaurant owners",
+  ownerSectionTitle: "Turn this website into a sales tool for any restaurant",
+  ownerSectionText:
+    "Guests can view the menu, book a table, and contact the restaurant from their phone. Owners get an admin area to update dishes, categories, and reservations.",
+  viewMenuDemo: "View menu demo",
+  viewBookingDemo: "View booking demo",
+  ownerFeatureMenuTitle: "Online menu with photos",
+  ownerFeatureMenuText:
+    "Show dishes, prices, descriptions, and categories clearly so guests can browse before visiting.",
+  ownerFeatureBookingTitle: "Table booking form",
+  ownerFeatureBookingText:
+    "Collect guest name, date, time, party size, phone number, and special requests directly on the website.",
+  ownerFeatureAdminTitle: "Admin management",
+  ownerFeatureAdminText:
+    "Owners can add, edit, and delete dishes, manage categories, and accept or reject reservations.",
+  ownerFeatureBilingualTitle: "English and Vietnamese",
+  ownerFeatureBilingualText:
+    "Useful for restaurants serving both local guests and international visitors.",
+  whyItSells: "Why it sells",
+  benefitsTitle: "Value restaurant owners can understand immediately",
+  businessBenefitMobileTitle: "Polished on mobile",
+  businessBenefitMobileText:
+    "Most guests search for restaurants on phones, so a clean mobile experience helps them browse and contact faster.",
+  businessBenefitMessagesTitle: "Fewer repeated messages",
+  businessBenefitMessagesText:
+    "Menu, opening hours, address, and booking details live in one place, reducing basic questions.",
+  businessBenefitBookingTitle: "Capture guests directly",
+  businessBenefitBookingText:
+    "Clear booking and contact actions help turn website visitors into real guests.",
+  packages: "Packages",
+  packagesTitle: "Easy to quote for different restaurant needs",
+  packagesText:
+    "Use these packages in sales emails so prospects can quickly understand the implementation scope.",
+  starterPlan: "Basic",
+  starterPlanDescription: "Best for restaurants that need a simple page and online menu.",
+  starterPlanFeatureMenu: "Homepage, about section, and online menu",
+  starterPlanFeatureBranding: "Replace logo, colors, photos, and restaurant details",
+  growthPlan: "Standard",
+  growthPlanDescription: "Best for restaurants that want table booking on the website.",
+  growthPlanFeatureBooking: "Booking form and clear contact details",
+  growthPlanFeatureAdmin: "Admin tools for dishes, categories, and reservations",
+  proPlan: "Pro",
+  proPlanDescription: "Best for restaurants that need deeper workflow customization.",
+  proPlanFeatureCustom: "Custom layout, content, and booking flow",
+  proPlanFeatureSupport: "Launch support, handoff, and post-launch adjustments",
+  readyToSell: "Ready to sell",
+  finalCtaTitle: "Send this demo link to restaurants and offer a version with their own brand",
+  finalCtaText:
+    "The strongest sales angle is offering a quick demo using the restaurant's real logo, photos, and menu.",
+  demoFormTitle: "Get a demo for your restaurant",
+  demoFormText:
+    "Leave your details and we will follow up with a demo tailored to your restaurant brand.",
+  restaurantName: "Restaurant name",
+  contactName: "Contact name",
+  websiteUrl: "Current website (if any)",
+  leadMessage: "What features do you want for the website?",
+  sendDemoRequest: "Send demo request",
+  leadSuccess: "Demo request sent. We will contact you soon.",
+  leadFailed: "Failed to send demo request. Please try again.",
   previewImage: "Image preview",
   close: "Close",
   editMenu: "Edit item",

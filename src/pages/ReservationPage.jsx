@@ -1,9 +1,10 @@
 import ReservationForm from '../components/reservation/ReservationForm'
 import { useLanguage } from '../contexts/LanguageContext'
-import { restaurantConfig } from '../config/restaurant'
+import { useRestaurantSettings } from '../hooks/useRestaurantSettings'
 
 export default function ReservationPage() {
   const { t } = useLanguage()
+  const restaurant = useRestaurantSettings()
 
   return (
   <div className="min-h-screen bg-[#f7f1e8]">
@@ -11,8 +12,8 @@ export default function ReservationPage() {
     {/* HERO */}
     <section className="relative h-100 overflow-hidden">
       <img
-        src={restaurantConfig.heroImage}
-        alt={restaurantConfig.name}
+        src={restaurant.heroImage}
+        alt={restaurant.name}
         className="h-full w-full object-cover"
       />
 
@@ -21,7 +22,7 @@ export default function ReservationPage() {
       <div className="absolute inset-0 flex items-center justify-center text-center text-white">
         <div>
           <p className="mb-4 text-sm tracking-[6px] uppercase">
-            {restaurantConfig.name}
+            {restaurant.name}
           </p>
           <h1 className="text-5xl font-light md:text-6xl">
             {t('reservationHeader')}
@@ -50,18 +51,18 @@ export default function ReservationPage() {
         <div className="mt-10 space-y-6 border-l border-orange-300 pl-6">
           <div>
             <h3 className="font-semibold">{t('openingHours')}</h3>
-            <p className="text-gray-600">{restaurantConfig.openingHours}</p>
+            <p className="text-gray-600">{restaurant.openingHours}</p>
           </div>
 
           <div>
             <h3 className="font-semibold">{t('contact')}</h3>
-            <p className="text-gray-600">{restaurantConfig.phone}</p>
+            <p className="text-gray-600">{restaurant.phone}</p>
           </div>
 
           <div>
             <h3 className="font-semibold">{t('address')}</h3>
             <p className="text-gray-600">
-              {restaurantConfig.fullAddress}
+              {restaurant.fullAddress}
             </p>
           </div>
         </div>

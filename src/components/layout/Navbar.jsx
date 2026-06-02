@@ -1,18 +1,19 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useLanguage } from '../../contexts/LanguageContext'
-import { restaurantConfig } from '../../config/restaurant'
+import { useRestaurantSettings } from '../../hooks/useRestaurantSettings'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const { locale, setLocale, t } = useLanguage()
+  const restaurant = useRestaurantSettings()
 
   return (
     <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <div className="flex items-center gap-3">
-          <img src={restaurantConfig.logo} alt={`${restaurantConfig.name} logo`} className="h-10 w-10 rounded-full object-cover shadow-sm" />
-          <h1 className="text-2xl font-bold">{restaurantConfig.name}</h1>
+          <img src={restaurant.logo} alt={`${restaurant.name} logo`} className="h-10 w-10 rounded-full object-cover shadow-sm" />
+          <h1 className="text-2xl font-bold">{restaurant.name}</h1>
         </div>
 
         {/* Desktop nav */}
@@ -21,6 +22,12 @@ export default function Navbar() {
           <Link to="/menu">{t('menu')}</Link>
           <Link to="/about-us">{t('aboutUs')}</Link>
           <Link to="/reservation">{t('reservation')}</Link>
+          <a
+            href="/#demo-request"
+            className="rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+          >
+            {t('requestDemo')}
+          </a>
 
           <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-2 py-1">
             <button
@@ -66,6 +73,13 @@ export default function Navbar() {
               <Link to="/menu" onClick={() => setOpen(false)} className="py-2">{t('menu')}</Link>
               <Link to="/about-us" onClick={() => setOpen(false)} className="py-2">{t('aboutUs')}</Link>
               <Link to="/reservation" onClick={() => setOpen(false)} className="py-2">{t('reservation')}</Link>
+              <a
+                href="/#demo-request"
+                onClick={() => setOpen(false)}
+                className="rounded-full bg-orange-500 px-4 py-3 text-center font-semibold text-white"
+              >
+                {t('requestDemo')}
+              </a>
 
               <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-2 py-1">
                 <button

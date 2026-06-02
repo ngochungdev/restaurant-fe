@@ -79,8 +79,70 @@ const vi = {
   aboutText:
     "Bella Restaurant mang đến trải nghiệm ẩm thực khó quên với nguyên liệu thượng hạng và kỹ thuật nấu hiện đại.",
   bookTableHero: "Đặt bàn",
-  experienceDining: "Trải nghiệm ẩm thực đỉnh cao",
-  experienceText: "Món ngon thượng hạng và trải nghiệm ẩm thực khó quên.",
+  experienceDining: "Website nhà hàng đẹp, có menu online và đặt bàn",
+  experienceText:
+    "Đây là bản demo một website nhà hàng có thể đổi logo, hình ảnh, menu và nội dung theo thương hiệu của bạn.",
+  restaurantWebsiteDemo: "Demo website nhà hàng",
+  requestDemo: "Yêu cầu demo",
+  forRestaurantOwners: "Dành cho chủ nhà hàng",
+  ownerSectionTitle: "Biến website này thành công cụ bán hàng cho nhà hàng của bạn",
+  ownerSectionText:
+    "Khách có thể xem menu, đặt bàn và liên hệ ngay trên điện thoại. Chủ nhà hàng có khu vực admin để cập nhật món ăn, danh mục và xử lý đặt bàn.",
+  viewMenuDemo: "Xem demo menu",
+  viewBookingDemo: "Xem demo đặt bàn",
+  ownerFeatureMenuTitle: "Menu online có hình ảnh",
+  ownerFeatureMenuText:
+    "Hiển thị món ăn, giá, mô tả và danh mục rõ ràng để khách xem nhanh trước khi đến quán.",
+  ownerFeatureBookingTitle: "Form đặt bàn",
+  ownerFeatureBookingText:
+    "Nhận thông tin khách, ngày giờ, số lượng người và yêu cầu đặc biệt trực tiếp trên website.",
+  ownerFeatureAdminTitle: "Admin quản lý",
+  ownerFeatureAdminText:
+    "Chủ quán có thể thêm, sửa, xóa món ăn, danh mục và duyệt hoặc từ chối đặt bàn.",
+  ownerFeatureBilingualTitle: "Song ngữ EN/VI",
+  ownerFeatureBilingualText:
+    "Phù hợp nhà hàng phục vụ cả khách địa phương và khách quốc tế.",
+  whyItSells: "Vì sao dễ bán",
+  benefitsTitle: "Những điểm chủ nhà hàng dễ thấy giá trị ngay",
+  businessBenefitMobileTitle: "Đẹp trên điện thoại",
+  businessBenefitMobileText:
+    "Phần lớn khách tìm nhà hàng bằng điện thoại, nên giao diện mobile rõ ràng giúp họ xem menu và liên hệ nhanh.",
+  businessBenefitMessagesTitle: "Giảm hỏi đáp lặp lại",
+  businessBenefitMessagesText:
+    "Menu, giờ mở cửa, địa chỉ và đặt bàn được gom vào một nơi, giảm tin nhắn hỏi giá và thông tin cơ bản.",
+  businessBenefitBookingTitle: "Nhận khách trực tiếp",
+  businessBenefitBookingText:
+    "Nút đặt bàn và liên hệ rõ ràng giúp biến người xem website thành khách thật.",
+  packages: "Gói triển khai",
+  packagesTitle: "Dễ báo giá theo nhu cầu từng nhà hàng",
+  packagesText:
+    "Bạn có thể dùng các gói này khi gửi email sale để khách hàng dễ chọn phạm vi triển khai.",
+  starterPlan: "Basic",
+  starterPlanDescription: "Phù hợp quán cần trang giới thiệu và menu online đẹp.",
+  starterPlanFeatureMenu: "Trang chủ, giới thiệu và menu online",
+  starterPlanFeatureBranding: "Đổi logo, màu sắc, hình ảnh và thông tin quán",
+  growthPlan: "Standard",
+  growthPlanDescription: "Phù hợp nhà hàng muốn nhận đặt bàn trên website.",
+  growthPlanFeatureBooking: "Form đặt bàn và thông tin liên hệ rõ ràng",
+  growthPlanFeatureAdmin: "Admin quản lý món ăn, danh mục và booking",
+  proPlan: "Pro",
+  proPlanDescription: "Phù hợp nhà hàng muốn tùy chỉnh sâu theo vận hành riêng.",
+  proPlanFeatureCustom: "Tùy chỉnh giao diện, nội dung và luồng đặt bàn",
+  proPlanFeatureSupport: "Hỗ trợ triển khai, bàn giao và chỉnh sửa sau launch",
+  readyToSell: "Sẵn sàng chào bán",
+  finalCtaTitle: "Gửi link demo này cho nhà hàng và mời họ xem phiên bản theo thương hiệu của họ",
+  finalCtaText:
+    "Cách sale hiệu quả nhất là đề xuất làm một bản demo nhanh với logo, hình ảnh và menu thật của nhà hàng.",
+  demoFormTitle: "Nhận demo theo nhà hàng của bạn",
+  demoFormText:
+    "Để lại thông tin, bên em sẽ liên hệ và gửi bản demo phù hợp với thương hiệu nhà hàng.",
+  restaurantName: "Tên nhà hàng",
+  contactName: "Tên người liên hệ",
+  websiteUrl: "Website hiện tại (nếu có)",
+  leadMessage: "Bạn muốn website có những chức năng gì?",
+  sendDemoRequest: "Gửi yêu cầu demo",
+  leadSuccess: "Đã gửi yêu cầu demo. Bên em sẽ liên hệ sớm.",
+  leadFailed: "Gửi yêu cầu demo thất bại. Vui lòng thử lại.",
   previewImage: "Xem trước hình ảnh",
   close: "Đóng",
   editMenu: "Sửa món",
