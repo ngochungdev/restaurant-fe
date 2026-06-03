@@ -1,5 +1,6 @@
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import LoadingState from "../../../components/common/LoadingState";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import {
   getCategoryId,
@@ -32,7 +33,7 @@ export default function CategoryDetail() {
     deleteCategoryMutation.mutate(getCategoryId(category));
   };
 
-  if (isLoading) return <section className="px-6 py-10">{t("loadingCategories")}</section>;
+  if (isLoading) return <LoadingState label={t("loadingCategories")} />;
   if (!category) return <Navigate to="/admin/categories" replace />;
 
   return (

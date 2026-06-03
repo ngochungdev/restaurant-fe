@@ -1,5 +1,6 @@
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import LoadingState from "../../../components/common/LoadingState";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import { getMenuId, useMenusQuery, useUpdateMenuMutation } from "../../../hooks/useMenuQueries";
 import { showApiError } from "../../../utils/apiError";
@@ -26,7 +27,7 @@ export default function MenuEdit() {
     },
   });
 
-  if (isLoading) return <section className="px-6 py-10">{t("submitting")}</section>;
+  if (isLoading) return <LoadingState label={t("loadingMenu")} />;
   if (!menu) return <Navigate to="/admin/menu" replace />;
 
   return (

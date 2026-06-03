@@ -1,8 +1,11 @@
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import LoadingState from "../../../components/common/LoadingState";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import { getMenuId, useDeleteMenuMutation, useMenusQuery } from "../../../hooks/useMenuQueries";
 import { showApiError } from "../../../utils/apiError";
+import { getMenuCategoryLabel } from "../../../utils/category";
+import { formatPrice } from "../../../utils/price";
 
 export default function MenuDetail() {
   const { id } = useParams();
@@ -27,8 +30,10 @@ export default function MenuDetail() {
     deleteMenuMutation.mutate(getMenuId(menu));
   };
 
-  if (isLoading) return <section className="px-6 py-10">{t("submitting")}</section>;
+  if (isLoading) return <LoadingState label={t("loadingMenu")} />;
   if (!menu) return <Navigate to="/admin/menu" replace />;
+
+  const categoryLabel = getMenuCategoryLabel(menu);
 
   return (
     <section className="mx-auto max-w-4xl px-6 py-10">
@@ -49,14 +54,14 @@ export default function MenuDetail() {
         <div className="p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              {menu.category && (
+              {categoryLabel && (
                 <p className="text-sm font-semibold uppercase tracking-wide text-orange-500">
-                  {menu.category}
+                  {categoryLabel}
                 </p>
               )}
               <p className="mt-3 text-gray-600">{menu.description}</p>
             </div>
-            <span className="text-2xl font-bold text-orange-500">${menu.price}</span>
+            <span className="text-2xl font-bold text-orange-500">${formatPrice(menu.price)}</span>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">

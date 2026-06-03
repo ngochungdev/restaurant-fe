@@ -1,4 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
+import EmptyState from "../../../components/common/EmptyState";
+import LoadingState from "../../../components/common/LoadingState";
 import MenuCard from "../../../components/menu/MenuCard";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import { getMenuId, useMenusQuery } from "../../../hooks/useMenuQueries";
@@ -25,7 +27,12 @@ export default function MenuIndex() {
       </div>
 
       {isLoading ? (
-        <p className="text-sm text-gray-500">{t("submitting")}</p>
+        <LoadingState label={t("loadingMenu")} />
+      ) : menus.length === 0 ? (
+        <EmptyState
+          title={t("noMenuItems")}
+          description={t("addFirstMenuItem")}
+        />
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {menus.map((item) => (

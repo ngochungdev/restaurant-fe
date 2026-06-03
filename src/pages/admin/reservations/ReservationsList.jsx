@@ -1,5 +1,8 @@
+import { useMemo, useState } from "react";
 import useAuthStore from "../../../stores/auth.store";
 import { toast } from "sonner";
+import EmptyState from "../../../components/common/EmptyState";
+import LoadingState from "../../../components/common/LoadingState";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import {
   useAcceptReservationMutation,
@@ -8,10 +11,23 @@ import {
 } from "../../../hooks/useReservationQueries";
 import { useReservationSocket } from "../../../hooks/useReservationSocket";
 
+const getReservationStatus = (reservation) => reservation.status || "PENDING";
+
+const getReservationDate = (reservation) => {
+  const value = reservation.reservationDateLocal || reservation.reservationDate;
+  if (!value) return "";
+  if (typeof value === "string" && value.includes("T")) return value.split("T")[0];
+
+  return new Date(value).toISOString().split("T")[0];
+};
+
 export default function ReservationsList() {
   const user = useAuthStore((s) => s.user);
   const isAdmin = user && user.role === "ADMIN";
   const { t } = useLanguage();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("ALL");
+  const [dateFilter, setDateFilter] = useState("");
 
   useReservationSocket({ enabled: isAdmin });
 
@@ -50,19 +66,111 @@ export default function ReservationsList() {
     rejectReservationMutation.mutate(id);
   };
 
-  if (loading) return <section className="px-6 py-10">{t("submitting")}</section>;
+  const summary = useMemo(() => {
+    const counts = {
+      total: reservations.length,
+      pending: 0,
+      accepted: 0,
+      rejected: 0,
+    };
+
+    reservations.forEach((reservation) => {
+      const status = getReservationStatus(reservation);
+      if (status === "ACCEPTED" || status === "CONFIRMED") counts.accepted += 1;
+      if (status === "REJECTED" || status === "CANCELLED") counts.rejected += 1;
+      if (status === "PENDING") counts.pending += 1;
+    });
+
+    return counts;
+  }, [reservations]);
+
+  const filteredReservations = useMemo(() => {
+    const normalizedSearch = searchTerm.trim().toLowerCase();
+
+    return reservations.filter((reservation) => {
+      const status = getReservationStatus(reservation);
+      const statusGroup =
+        status === "CONFIRMED" ? "ACCEPTED" : status === "CANCELLED" ? "REJECTED" : status;
+      const customerName = reservation.customerName || reservation.user?.username || "";
+      const searchableText = `${customerName} ${reservation.phone || ""} ${reservation.email || ""}`.toLowerCase();
+      const matchesSearch = !normalizedSearch || searchableText.includes(normalizedSearch);
+      const matchesStatus = statusFilter === "ALL" || statusGroup === statusFilter;
+      const matchesDate = !dateFilter || getReservationDate(reservation) === dateFilter;
+
+      return matchesSearch && matchesStatus && matchesDate;
+    });
+  }, [dateFilter, reservations, searchTerm, statusFilter]);
+
+  if (loading) return <LoadingState label={t("loadingReservations")} />;
   if (isError) return <section className="px-6 py-10">{t("reservationFailed")}</section>;
 
   return (
-    <section className="mx-auto max-w-5xl px-6 py-10">
+    <section className="mx-auto max-w-6xl px-6 py-10">
       <div className="mb-8">
         <h2 className="text-3xl font-semibold text-gray-900">{t("adminReservations")}</h2>
       </div>
 
-      <div className="space-y-4">
-        {reservations.length === 0 && <div>{t("noReservations")}</div>}
+      <div className="mb-6 grid gap-4 md:grid-cols-4">
+        {[
+          [t("totalReservations"), summary.total],
+          [t("statusPending"), summary.pending],
+          [t("statusAccepted"), summary.accepted],
+          [t("statusRejected"), summary.rejected],
+        ].map(([label, value]) => (
+          <div key={label} className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+            <p className="text-sm font-medium text-gray-500">{label}</p>
+            <p className="mt-2 text-3xl font-semibold text-gray-900">{value}</p>
+          </div>
+        ))}
+      </div>
 
-        {reservations.map((r) => (
+      <div className="mb-6 grid gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm md:grid-cols-[1fr_auto_auto]">
+        <label className="block">
+          <span className="sr-only">{t("searchReservations")}</span>
+          <input
+            type="search"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            placeholder={t("searchReservationsPlaceholder")}
+            className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+          />
+        </label>
+
+        <label className="block">
+          <span className="sr-only">{t("filterReservationStatus")}</span>
+          <select
+            value={statusFilter}
+            onChange={(event) => setStatusFilter(event.target.value)}
+            className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white md:w-52"
+          >
+            <option value="ALL">{t("allStatuses")}</option>
+            <option value="PENDING">{t("statusPending")}</option>
+            <option value="ACCEPTED">{t("statusAccepted")}</option>
+            <option value="REJECTED">{t("statusRejected")}</option>
+          </select>
+        </label>
+
+        <label className="block">
+          <span className="sr-only">{t("filterReservationDate")}</span>
+          <input
+            type="date"
+            value={dateFilter}
+            onChange={(event) => setDateFilter(event.target.value)}
+            onFocus={(event) => event.target.showPicker?.()}
+            className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white md:w-48"
+          />
+        </label>
+      </div>
+
+      <div className="space-y-4">
+        {filteredReservations.length === 0 && (
+          <EmptyState
+            title={reservations.length === 0 ? t("noReservations") : t("noReservationMatches")}
+            description={reservations.length === 0 ? t("noReservationsDescription") : t("tryDifferentReservationFilter")}
+          />
+        )}
+
+        {filteredReservations.map((r) => (
           <div key={r.id || r._id} className="rounded-lg border bg-white p-4 shadow-sm">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">

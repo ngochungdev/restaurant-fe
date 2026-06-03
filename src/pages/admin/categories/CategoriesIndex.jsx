@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import EmptyState from "../../../components/common/EmptyState";
+import LoadingState from "../../../components/common/LoadingState";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import { getCategoryId, getCategoryName, useCategoriesQuery } from "../../../hooks/useCategoryQueries";
 
@@ -32,11 +34,16 @@ export default function CategoriesIndex() {
         </div>
 
         {isLoading ? (
-          <p className="p-6 text-sm text-gray-500">{t("loadingCategories")}</p>
+          <LoadingState label={t("loadingCategories")} />
         ) : isError ? (
           <p className="p-6 text-sm text-red-600">{t("loadCategoriesFail")}</p>
         ) : categories.length === 0 ? (
-          <p className="p-6 text-sm text-gray-500">{t("noCategories")}</p>
+          <div className="p-6">
+            <EmptyState
+              title={t("noCategories")}
+              description={t("addFirstCategory")}
+            />
+          </div>
         ) : (
           <div className="divide-y divide-gray-200">
             {categories.map((category) => (
