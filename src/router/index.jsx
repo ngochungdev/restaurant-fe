@@ -9,6 +9,7 @@ import ReservationList from "../pages/admin/reservations/ReservationsList";
 import ProtectedRoute from "../components/ProtectedRoute";
 import PublicLayout from "../components/layout/PublicLayout";
 import AdminLayout from "../components/layout/AdminLayout";
+import Dashboard from "../pages/admin/Dashboard";
 import CategoriesIndex from "../pages/admin/categories/CategoriesIndex";
 import CategoryAdd from "../pages/admin/categories/CategoryAdd";
 import CategoryDetail from "../pages/admin/categories/CategoryDetail";
@@ -34,7 +35,8 @@ export default function Router() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<Navigate to="/admin/menu" replace />} />
+          <Route index element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="menu" element={<MenuIndex />} />
           <Route path="menu/add" element={<MenuAdd />} />
           <Route path="menu/:id" element={<MenuDetail />} />

@@ -20,12 +20,13 @@ export default function AdminLayout() {
     <>
       <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link to="/admin/menu" className="flex items-center gap-3">
+          <Link to="/admin/dashboard" className="flex items-center gap-3">
             <img src={restaurantConfig.logo} alt={`${restaurantConfig.name} logo`} className="h-10 w-10 rounded-full object-cover shadow-sm" />
             <h1 className="text-2xl font-bold">Admin</h1>
           </Link>
 
           <nav className="hidden items-center gap-6 font-medium md:flex">
+            <Link to="/admin/dashboard">{t("adminDashboard")}</Link>
             <Link to="/admin/menu">{t("adminMenu")}</Link>
             <Link to="/admin/categories">{t("adminCategories")}</Link>
             <Link to="/admin/reservations">{t("adminReservations")}</Link>
@@ -77,6 +78,7 @@ export default function AdminLayout() {
           {open && (
             <div className="absolute inset-x-0 top-full z-40 border-t bg-white shadow md:hidden">
               <div className="flex flex-col gap-2 px-4 py-4">
+                <Link to="/admin/dashboard" onClick={() => setOpen(false)} className="py-2">{t("adminDashboard")}</Link>
                 <Link to="/admin/menu" onClick={() => setOpen(false)} className="py-2">{t("adminMenu")}</Link>
                 <Link to="/admin/categories" onClick={() => setOpen(false)} className="py-2">{t("adminCategories")}</Link>
                 <Link to="/admin/reservations" onClick={() => setOpen(false)} className="py-2">{t("adminReservations")}</Link>
