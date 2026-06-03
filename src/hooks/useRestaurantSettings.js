@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { restaurantConfig } from "../config/restaurant";
 import { queryKeys } from "../lib/queryClient";
 import settingsService from "../services/settings.service";
@@ -29,6 +29,19 @@ export const useSettingsQuery = (options = {}) =>
     retry: 1,
     ...options,
   });
+
+export const useUpdateSettingsMutation = (options = {}) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: settingsService.updateCurrent,
+    ...options,
+    onSuccess: (data, variables, context) => {
+      queryClient.setQueryData(queryKeys.settings, data);
+      options.onSuccess?.(data, variables, context);
+    },
+  });
+};
 
 export const useRestaurantSettings = () => {
   const { data } = useSettingsQuery();

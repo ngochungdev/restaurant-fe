@@ -30,6 +30,7 @@ export default function AdminLayout() {
             <Link to="/admin/menu">{t("adminMenu")}</Link>
             <Link to="/admin/categories">{t("adminCategories")}</Link>
             <Link to="/admin/reservations">{t("adminReservations")}</Link>
+            <Link to="/admin/settings">{t("adminSettings")}</Link>
             {/* <Link to="/">{t("home")}</Link> */}
 
             <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-2 py-1">
@@ -82,6 +83,7 @@ export default function AdminLayout() {
                 <Link to="/admin/menu" onClick={() => setOpen(false)} className="py-2">{t("adminMenu")}</Link>
                 <Link to="/admin/categories" onClick={() => setOpen(false)} className="py-2">{t("adminCategories")}</Link>
                 <Link to="/admin/reservations" onClick={() => setOpen(false)} className="py-2">{t("adminReservations")}</Link>
+                <Link to="/admin/settings" onClick={() => setOpen(false)} className="py-2">{t("adminSettings")}</Link>
                 <Link to="/" onClick={() => setOpen(false)} className="py-2">{t("home")}</Link>
 
                 <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-2 py-1">

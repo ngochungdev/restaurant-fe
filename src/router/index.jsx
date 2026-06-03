@@ -18,6 +18,7 @@ import MenuIndex from "../pages/admin/menu/MenuIndex";
 import MenuAdd from "../pages/admin/menu/MenuAdd";
 import MenuDetail from "../pages/admin/menu/MenuDetail";
 import MenuEdit from "../pages/admin/menu/MenuEdit";
+import SettingsPage from "../pages/admin/settings/SettingsPage";
 
 export default function Router() {
   return (
@@ -46,6 +47,7 @@ export default function Router() {
           <Route path="categories/:id" element={<CategoryDetail />} />
           <Route path="categories/:id/edit" element={<CategoryEdit />} />
           <Route path="reservations" element={<ReservationList />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
 
         <Route element={<PublicLayout />}>
