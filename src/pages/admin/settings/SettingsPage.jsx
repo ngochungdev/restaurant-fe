@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
+import ImagePreview from "../../../components/common/ImagePreview";
 import LoadingState from "../../../components/common/LoadingState";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import { restaurantConfig } from "../../../config/restaurant";
@@ -147,6 +148,12 @@ export default function SettingsPage() {
                 onChange={(event) => updateField("logo", event.target.value)}
                 className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
               />
+              <ImagePreview
+                src={form.logo}
+                alt={t("logoPreview")}
+                type="logo"
+                className="mt-3 inline-block"
+              />
             </label>
 
             <label className="block">
@@ -156,6 +163,12 @@ export default function SettingsPage() {
                 value={form.heroImage}
                 onChange={(event) => updateField("heroImage", event.target.value)}
                 className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+              />
+              <ImagePreview
+                src={form.heroImage}
+                alt={t("heroImagePreview")}
+                type="hero"
+                className="mt-3"
               />
             </label>
 
