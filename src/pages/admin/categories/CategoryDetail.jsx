@@ -1,4 +1,5 @@
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 import { toast } from "sonner";
 import LoadingState from "../../../components/common/LoadingState";
 import { useLanguage } from "../../../contexts/LanguageContext";
@@ -39,15 +40,18 @@ export default function CategoryDetail() {
   return (
     <section className="px-6 py-10">
       <div className="mb-8">
-        <Link to="/admin/categories" className="text-sm font-semibold text-emerald-600">
+        <Link
+          to="/admin/categories"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600"
+        >
+          <FaArrowLeft aria-hidden="true" className="h-3.5 w-3.5" />
           {t("categoryList")}
         </Link>
-        <h2 className="mt-3 text-3xl font-semibold text-gray-900">{getCategoryName(category)}</h2>
       </div>
 
       <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-        <p className="text-sm text-gray-500">ID</p>
-        <p className="mt-1 font-semibold text-gray-900">{getCategoryId(category)}</p>
+        <p className="text-sm text-gray-500">{t("categoryName")}</p>
+        <p className="mt-1 text-xl font-semibold text-gray-900">{getCategoryName(category)}</p>
 
         <div className="mt-8 flex flex-wrap gap-3">
           <Link

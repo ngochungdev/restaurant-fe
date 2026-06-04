@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useCreateReservationMutation } from "../../hooks/useReservationQueries";
+import { getTodayInputDate } from "../../utils/date";
 
 export default function ReservationForm() {
   const navigate = useNavigate();
@@ -42,6 +43,15 @@ export default function ReservationForm() {
       return;
     }
 
+    if (name === "reservationDate" && value && value < getTodayInputDate()) {
+      toast.error(t('dateFromToday'));
+      setFormData({
+        ...formData,
+        reservationDate: "",
+      });
+      return;
+    }
+
     setFormData({
       ...formData,
       [name]: value,
@@ -51,7 +61,7 @@ export default function ReservationForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const todayStr = new Date().toISOString().split("T")[0];
+    const todayStr = getTodayInputDate();
     if (!formData.reservationDate || formData.reservationDate < todayStr) {
       toast.error(t('dateFromToday'));
       return;
@@ -108,7 +118,7 @@ export default function ReservationForm() {
             aria-label={t('selectDate')}
             onChange={handleChange}
             onFocus={(e) => e.target.showPicker?.()}
-            min={new Date().toISOString().split("T")[0]}
+            min={getTodayInputDate()}
             className="h-14 w-full appearance-none rounded-xl border border-gray-200 bg-[#faf7f2] px-4 text-gray-900 outline-none focus:border-orange-500"
           />
         </label>

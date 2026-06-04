@@ -54,7 +54,6 @@ export default function CategoriesIndex() {
               >
                 <div>
                   <p className="font-semibold text-gray-900">{getCategoryName(category)}</p>
-                  <p className="mt-1 text-xs text-gray-500">ID: {getCategoryId(category)}</p>
                 </div>
                 <span className="text-sm font-semibold text-emerald-600">{t("detail")}</span>
               </Link>

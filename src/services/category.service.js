@@ -14,7 +14,7 @@ const categoryService = {
   },
 
   update: async (id, data) => {
-    const res = await api.put(`/categories/${id}`, data);
+    const res = await api.patch(`/categories/${id}`, data);
 
     return res.data;
   },
