@@ -10,7 +10,8 @@ const vi = {
   register: "Đăng ký",
   logout: "Đăng xuất",
   adminDashboard: "Tổng quan",
-  dashboardDescription: "Theo dõi hoạt động nhà hàng và truy cập nhanh các tác vụ admin.",
+  dashboardDescription:
+    "Theo dõi hoạt động nhà hàng và truy cập nhanh các tác vụ admin.",
   loadingDashboard: "Đang tải tổng quan...",
   totalMenuItems: "Tổng số món",
   totalCategories: "Tổng danh mục",
@@ -18,9 +19,11 @@ const vi = {
   latestReservations: "Đặt chỗ mới nhất",
   quickActions: "Thao tác nhanh",
   adminSettings: "Cài đặt",
-  settingsDescription: "Cập nhật thông tin nhà hàng hiển thị trên website public.",
+  settingsDescription:
+    "Cập nhật thông tin nhà hàng hiển thị trên website public.",
   loadingSettings: "Đang tải cài đặt...",
-  settingsFallbackNotice: "Không tải được cài đặt đã lưu, form đang hiển thị thông tin mặc định.",
+  settingsFallbackNotice:
+    "Không tải được cài đặt đã lưu, form đang hiển thị thông tin mặc định.",
   restaurantInformation: "Thông tin nhà hàng",
   fullAddress: "Địa chỉ đầy đủ",
   brandAssets: "Hình ảnh thương hiệu",
@@ -37,7 +40,7 @@ const vi = {
   fillRestaurantName: "Vui lòng nhập tên nhà hàng.",
   adminMenu: "Quản lý món",
   adminCategories: "Quản lý danh mục",
-  adminReservations: "Đặt bàn Admin",
+  adminReservations: "Quản lý đặt bàn",
   username: "Tên đăng nhập",
   password: "Mật khẩu",
   signIn: "Đăng nhập",
@@ -139,7 +142,8 @@ const vi = {
   restaurantWebsiteDemo: "Demo website nhà hàng",
   requestDemo: "Yêu cầu demo",
   forRestaurantOwners: "Dành cho chủ nhà hàng",
-  ownerSectionTitle: "Biến website này thành công cụ bán hàng cho nhà hàng của bạn",
+  ownerSectionTitle:
+    "Biến website này thành công cụ bán hàng cho nhà hàng của bạn",
   ownerSectionText:
     "Khách có thể xem menu, đặt bàn và liên hệ ngay trên điện thoại. Chủ nhà hàng có khu vực admin để cập nhật món ăn, danh mục và xử lý đặt bàn.",
   viewMenuDemo: "Xem demo menu",
@@ -172,7 +176,8 @@ const vi = {
   packagesText:
     "Bạn có thể dùng các gói này khi gửi email sale để khách hàng dễ chọn phạm vi triển khai.",
   starterPlan: "Basic",
-  starterPlanDescription: "Phù hợp quán cần trang giới thiệu và menu online đẹp.",
+  starterPlanDescription:
+    "Phù hợp quán cần trang giới thiệu và menu online đẹp.",
   starterPlanFeatureMenu: "Trang chủ, giới thiệu và menu online",
   starterPlanFeatureBranding: "Đổi logo, màu sắc, hình ảnh và thông tin quán",
   growthPlan: "Standard",
@@ -180,11 +185,13 @@ const vi = {
   growthPlanFeatureBooking: "Form đặt bàn và thông tin liên hệ rõ ràng",
   growthPlanFeatureAdmin: "Admin quản lý món ăn, danh mục và booking",
   proPlan: "Pro",
-  proPlanDescription: "Phù hợp nhà hàng muốn tùy chỉnh sâu theo vận hành riêng.",
+  proPlanDescription:
+    "Phù hợp nhà hàng muốn tùy chỉnh sâu theo vận hành riêng.",
   proPlanFeatureCustom: "Tùy chỉnh giao diện, nội dung và luồng đặt bàn",
   proPlanFeatureSupport: "Hỗ trợ triển khai, bàn giao và chỉnh sửa sau launch",
   readyToSell: "Sẵn sàng chào bán",
-  finalCtaTitle: "Gửi link demo này cho nhà hàng và mời họ xem phiên bản theo thương hiệu của họ",
+  finalCtaTitle:
+    "Gửi link demo này cho nhà hàng và mời họ xem phiên bản theo thương hiệu của họ",
   finalCtaText:
     "Cách sale hiệu quả nhất là đề xuất làm một bản demo nhanh với logo, hình ảnh và menu thật của nhà hàng.",
   demoFormTitle: "Nhận demo theo nhà hàng của bạn",
