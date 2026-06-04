@@ -13,7 +13,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-black px-6 py-12 text-white">
-      <div className="mx-auto max-w-7xl">
+      <div className="w-full">
         <div className="grid gap-8 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <div>
             <h2 className="text-2xl font-bold text-white">

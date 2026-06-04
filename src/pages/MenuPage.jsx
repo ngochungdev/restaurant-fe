@@ -53,7 +53,7 @@ export default function MenuPage() {
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24">
+    <section className="px-6 py-24">
       <div className="mb-14 text-center">
         <h2 className="text-4xl font-bold">
           {t('menuTitle')}

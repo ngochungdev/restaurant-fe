@@ -105,7 +105,7 @@ export default function ReservationsList() {
   if (isError) return <section className="px-6 py-10">{t("reservationFailed")}</section>;
 
   return (
-    <section className="mx-auto max-w-6xl px-6 py-10">
+    <section className="px-6 py-10">
       <div className="mb-8">
         <h2 className="text-3xl font-semibold text-gray-900">{t("adminReservations")}</h2>
       </div>

@@ -120,7 +120,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <section className="mx-auto max-w-5xl px-6 py-10">
+    <section className="px-6 py-10">
       <div className="mb-8">
         <h2 className="text-3xl font-semibold text-gray-900">{t("adminSettings")}</h2>
         <p className="mt-2 text-sm text-gray-500">{t("settingsDescription")}</p>

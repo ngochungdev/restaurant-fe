@@ -31,7 +31,7 @@ export default function MenuEdit() {
   if (!menu) return <Navigate to="/admin/menu" replace />;
 
   return (
-    <section className="mx-auto max-w-3xl px-6 py-10">
+    <section className="px-6 py-10">
       <div className="mb-8">
         <Link to={`/admin/menu/${id}`} className="text-sm font-semibold text-emerald-600">
           {menu.name}

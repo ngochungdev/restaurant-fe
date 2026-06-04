@@ -80,7 +80,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-10 px-6 py-20 lg:grid-cols-[0.9fr_1.1fr]">
+      <section className="grid gap-10 px-6 py-20 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <p className="text-sm font-bold uppercase tracking-[3px] text-orange-600">
             {t('forRestaurantOwners')}
@@ -125,7 +125,7 @@ export default function HomePage() {
       </section>
 
       <section className="bg-white px-6 py-20">
-        <div className="mx-auto max-w-7xl">
+        <div className="w-full">
           <div className="max-w-3xl">
             <p className="text-sm font-bold uppercase tracking-[3px] text-orange-600">
               {t('whyItSells')}
@@ -150,7 +150,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20">
+      <section className="px-6 py-20">
         <div className="text-center">
           <p className="text-sm font-bold uppercase tracking-[3px] text-orange-600">
             {t('packages')}
@@ -193,7 +193,7 @@ export default function HomePage() {
       </section>
 
       <section id="demo-request" className="bg-orange-600 px-6 py-16 text-white">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div className="text-center lg:text-left">
             <p className="text-sm font-bold uppercase tracking-[3px] text-orange-100">
               {t('readyToSell')}

@@ -33,7 +33,7 @@ export default function AdminLayout() {
   return (
     <>
       <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <div className="flex items-center justify-between px-6 py-4">
           <Link to="/admin/dashboard" className="flex items-center gap-3">
             <img src={restaurantConfig.logo} alt={`${restaurantConfig.name} logo`} className="h-10 w-10 rounded-full object-cover shadow-sm" />
             <h1 className="text-2xl font-bold">Admin</h1>

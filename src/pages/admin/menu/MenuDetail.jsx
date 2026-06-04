@@ -36,7 +36,7 @@ export default function MenuDetail() {
   const categoryLabel = getMenuCategoryLabel(menu);
 
   return (
-    <section className="mx-auto max-w-4xl px-6 py-10">
+    <section className="px-6 py-10">
       <div className="mb-8">
         <Link to="/admin/menu" className="text-sm font-semibold text-emerald-600">
           {t("adminMenu")}

@@ -32,7 +32,7 @@ export default function ReservationPage() {
     </section>
 
     {/* CONTENT */}
-    <section className="mx-auto max-w-7xl px-6 py-20 grid lg:grid-cols-2 gap-14">
+    <section className="px-6 py-20 grid lg:grid-cols-2 gap-14">
 
       {/* LEFT INFO */}
       <div>

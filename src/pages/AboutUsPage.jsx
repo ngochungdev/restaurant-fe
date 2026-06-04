@@ -16,7 +16,7 @@ export default function AboutUsPage() {
 
   return (
     <section className="bg-gray-100 px-6 py-24">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+      <div className="grid items-center gap-12 lg:grid-cols-2">
         <img
           src={image}
           alt={title}

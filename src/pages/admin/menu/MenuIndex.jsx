@@ -11,7 +11,7 @@ export default function MenuIndex() {
   const { data: menus = [], isLoading } = useMenusQuery();
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-10">
+    <section className="px-6 py-10">
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h2 className="text-3xl font-semibold text-gray-900">{t("adminMenu")}</h2>

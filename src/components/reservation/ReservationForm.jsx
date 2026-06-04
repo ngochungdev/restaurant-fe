@@ -96,27 +96,37 @@ export default function ReservationForm() {
         className="h-14 w-full rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
       />
 
-      <div className="grid grid-cols-2 gap-4">
-        <input
-          type="date"
-          name="reservationDate"
-          value={formData.reservationDate}
-          aria-label={t('selectDate')}
-          onChange={handleChange}
-          onFocus={(e) => e.target.showPicker?.()}
-          min={new Date().toISOString().split("T")[0]}
-          className="h-14 rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
-        />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="block">
+          <span className="mb-2 block text-sm font-medium text-gray-700">
+            {t('selectDate')}
+          </span>
+          <input
+            type="date"
+            name="reservationDate"
+            value={formData.reservationDate}
+            aria-label={t('selectDate')}
+            onChange={handleChange}
+            onFocus={(e) => e.target.showPicker?.()}
+            min={new Date().toISOString().split("T")[0]}
+            className="h-14 w-full appearance-none rounded-xl border border-gray-200 bg-[#faf7f2] px-4 text-gray-900 outline-none focus:border-orange-500"
+          />
+        </label>
 
-        <input
-          type="time"
-          name="reservationTime"
-          value={formData.reservationTime}
-          aria-label={t('selectTime')}
-          onChange={handleChange}
-          onFocus={(e) => e.target.showPicker?.()}
-          className="h-14 rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
-        />
+        <label className="block">
+          <span className="mb-2 block text-sm font-medium text-gray-700">
+            {t('selectTime')}
+          </span>
+          <input
+            type="time"
+            name="reservationTime"
+            value={formData.reservationTime}
+            aria-label={t('selectTime')}
+            onChange={handleChange}
+            onFocus={(e) => e.target.showPicker?.()}
+            className="h-14 w-full appearance-none rounded-xl border border-gray-200 bg-[#faf7f2] px-4 text-gray-900 outline-none focus:border-orange-500"
+          />
+        </label>
       </div>
 
       <input
