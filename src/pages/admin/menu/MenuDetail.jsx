@@ -1,16 +1,20 @@
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 import { toast } from "sonner";
+import ConfirmDialog from "../../../components/common/ConfirmDialog";
 import LoadingState from "../../../components/common/LoadingState";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import { getMenuId, useDeleteMenuMutation, useMenusQuery } from "../../../hooks/useMenuQueries";
 import { showApiError } from "../../../utils/apiError";
 import { getMenuCategoryLabel } from "../../../utils/category";
 import { formatPrice } from "../../../utils/price";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function MenuDetail() {
   const { id } = useParams();
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { data: menus = [], isLoading } = useMenusQuery();
   const menu = menus.find((item) => String(getMenuId(item)) === String(id));
 
@@ -26,7 +30,7 @@ export default function MenuDetail() {
   });
 
   const handleDelete = () => {
-    if (!menu || !window.confirm(t("confirmDeleteMenu"))) return;
+    if (!menu) return;
     deleteMenuMutation.mutate(getMenuId(menu));
   };
 
@@ -38,7 +42,8 @@ export default function MenuDetail() {
   return (
     <section className="px-6 py-10">
       <div className="mb-8">
-        <Link to="/admin/menu" className="text-sm font-semibold text-emerald-600">
+        <Link to="/admin/menu" className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600">
+          <FaArrowLeft aria-hidden="true" className="h-3.5 w-3.5" />
           {t("adminMenu")}
         </Link>
         <h2 className="mt-3 text-3xl font-semibold text-gray-900">{menu.name}</h2>
@@ -73,7 +78,7 @@ export default function MenuDetail() {
             </Link>
             <button
               type="button"
-              onClick={handleDelete}
+              onClick={() => setIsDeleteDialogOpen(true)}
               disabled={deleteMenuMutation.isPending}
               className="rounded-2xl bg-red-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
@@ -82,6 +87,17 @@ export default function MenuDetail() {
           </div>
         </div>
       </div>
+
+      <ConfirmDialog
+        isOpen={isDeleteDialogOpen}
+        title={t("deleteMenu")}
+        description={t("confirmDeleteMenu")}
+        cancelLabel={t("cancel")}
+        confirmLabel={deleteMenuMutation.isPending ? t("submitting") : t("deleteMenu")}
+        isPending={deleteMenuMutation.isPending}
+        onClose={() => setIsDeleteDialogOpen(false)}
+        onConfirm={handleDelete}
+      />
     </section>
   );
 }

@@ -50,6 +50,8 @@ export default function SettingsPage() {
   const [aboutForm, setAboutForm] = useState(() =>
     getInitialAboutForm(aboutUs, t),
   );
+  const [errors, setErrors] = useState({});
+  const [aboutErrors, setAboutErrors] = useState({});
   const updateSettingsMutation = useUpdateSettingsMutation({
     onSuccess: () => toast.success(t("updateSettingsSuccess")),
     onError: (error) => {
@@ -84,6 +86,7 @@ export default function SettingsPage() {
       ...current,
       [name]: value,
     }));
+    setErrors((current) => ({ ...current, [name]: false }));
   };
 
   const updateAboutField = (name, value) => {
@@ -91,12 +94,24 @@ export default function SettingsPage() {
       ...current,
       [name]: value,
     }));
+    setAboutErrors((current) => ({ ...current, [name]: false }));
   };
+
+  const inputClassName = (hasError) =>
+    `mt-2 h-12 w-full rounded-xl border px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white ${
+      hasError ? "border-red-400 bg-red-50" : "border-gray-200 bg-gray-50"
+    }`;
+
+  const textareaClassName = (hasError) =>
+    `mt-2 w-full rounded-xl border px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:bg-white ${
+      hasError ? "border-red-400 bg-red-50" : "border-gray-200 bg-gray-50"
+    }`;
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     if (!form.restaurantName.trim()) {
+      setErrors({ restaurantName: true });
       toast.error(t("fillRestaurantName"));
       return;
     }
@@ -107,7 +122,13 @@ export default function SettingsPage() {
   const handleAboutSubmit = (event) => {
     event.preventDefault();
 
-    if (!aboutForm.title.trim() || !aboutForm.description.trim()) {
+    const nextAboutErrors = {
+      title: !aboutForm.title.trim(),
+      description: !aboutForm.description.trim(),
+    };
+
+    if (Object.values(nextAboutErrors).some(Boolean)) {
+      setAboutErrors(nextAboutErrors);
       toast.error(t("aboutFieldsRequired"));
       return;
     }
@@ -163,7 +184,7 @@ export default function SettingsPage() {
                   type="text"
                   value={form.restaurantName}
                   onChange={(event) => updateField("restaurantName", event.target.value)}
-                  className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                  className={inputClassName(errors.restaurantName)}
                 />
               </label>
 
@@ -173,7 +194,7 @@ export default function SettingsPage() {
                   type="text"
                   value={form.hotline}
                   onChange={(event) => updateField("hotline", event.target.value)}
-                  className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                  className={inputClassName(false)}
                 />
               </label>
 
@@ -183,7 +204,7 @@ export default function SettingsPage() {
                   type="text"
                   value={form.address}
                   onChange={(event) => updateField("address", event.target.value)}
-                  className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                  className={inputClassName(false)}
                 />
               </label>
 
@@ -193,7 +214,7 @@ export default function SettingsPage() {
                   type="text"
                   value={form.openingHours}
                   onChange={(event) => updateField("openingHours", event.target.value)}
-                  className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                  className={inputClassName(false)}
                 />
               </label>
 
@@ -203,7 +224,7 @@ export default function SettingsPage() {
                   type="text"
                   value={form.fullAddress}
                   onChange={(event) => updateField("fullAddress", event.target.value)}
-                  className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                  className={inputClassName(false)}
                 />
               </label>
             </div>
@@ -219,7 +240,7 @@ export default function SettingsPage() {
                   type="text"
                   value={form.logo}
                   onChange={(event) => updateField("logo", event.target.value)}
-                  className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                  className={inputClassName(false)}
                 />
                 <ImagePreview
                   src={form.logo}
@@ -235,7 +256,7 @@ export default function SettingsPage() {
                   type="text"
                   value={form.heroImage}
                   onChange={(event) => updateField("heroImage", event.target.value)}
-                  className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                  className={inputClassName(false)}
                 />
                 <ImagePreview
                   src={form.heroImage}
@@ -252,7 +273,7 @@ export default function SettingsPage() {
                   value={form.brandColor}
                   onChange={(event) => updateField("brandColor", event.target.value)}
                   placeholder="#16a34a"
-                  className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                  className={inputClassName(false)}
                 />
               </label>
             </div>
@@ -273,7 +294,7 @@ export default function SettingsPage() {
                     type="text"
                     value={form[name]}
                     onChange={(event) => updateField(name, event.target.value)}
-                    className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                    className={inputClassName(false)}
                   />
                 </label>
               ))}
@@ -304,7 +325,7 @@ export default function SettingsPage() {
                   type="text"
                   value={aboutForm.title}
                   onChange={(event) => updateAboutField("title", event.target.value)}
-                  className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                  className={inputClassName(aboutErrors.title)}
                 />
               </label>
 
@@ -316,7 +337,7 @@ export default function SettingsPage() {
                     updateAboutField("description", event.target.value)
                   }
                   rows={6}
-                  className="mt-2 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                  className={textareaClassName(aboutErrors.description)}
                 />
               </label>
 
@@ -326,7 +347,7 @@ export default function SettingsPage() {
                   type="text"
                   value={aboutForm.image}
                   onChange={(event) => updateAboutField("image", event.target.value)}
-                  className="mt-2 h-12 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                  className={inputClassName(false)}
                 />
                 <ImagePreview
                   src={aboutForm.image}

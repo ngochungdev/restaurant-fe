@@ -1,6 +1,8 @@
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import { useState } from "react";
 import { toast } from "sonner";
+import ConfirmDialog from "../../../components/common/ConfirmDialog";
 import LoadingState from "../../../components/common/LoadingState";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import {
@@ -15,6 +17,7 @@ export default function CategoryDetail() {
   const { id } = useParams();
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { data: categories = [], isLoading } = useCategoriesQuery();
   const category = categories.find((item) => String(getCategoryId(item)) === String(id));
 
@@ -30,7 +33,7 @@ export default function CategoryDetail() {
   });
 
   const handleDelete = () => {
-    if (!category || !window.confirm(t("confirmDeleteCategory"))) return;
+    if (!category) return;
     deleteCategoryMutation.mutate(getCategoryId(category));
   };
 
@@ -62,7 +65,7 @@ export default function CategoryDetail() {
           </Link>
           <button
             type="button"
-            onClick={handleDelete}
+            onClick={() => setIsDeleteDialogOpen(true)}
             disabled={deleteCategoryMutation.isPending}
             className="rounded-2xl bg-red-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
           >
@@ -70,6 +73,17 @@ export default function CategoryDetail() {
           </button>
         </div>
       </div>
+
+      <ConfirmDialog
+        isOpen={isDeleteDialogOpen}
+        title={t("delete")}
+        description={t("confirmDeleteCategory")}
+        cancelLabel={t("cancel")}
+        confirmLabel={deleteCategoryMutation.isPending ? t("submitting") : t("delete")}
+        isPending={deleteCategoryMutation.isPending}
+        onClose={() => setIsDeleteDialogOpen(false)}
+        onConfirm={handleDelete}
+      />
     </section>
   );
 }

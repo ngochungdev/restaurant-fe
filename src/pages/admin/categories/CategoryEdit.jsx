@@ -1,5 +1,7 @@
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import { FaArrowLeft } from "react-icons/fa";
+
 import LoadingState from "../../../components/common/LoadingState";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import {
@@ -34,9 +36,9 @@ export default function CategoryEdit() {
 
   return (
     <section className="px-6 py-10">
-      <div className="mb-8">
+      <div className="mb-8 flex items-center gap-2">
         <Link to={`/admin/categories/${id}`} className="text-sm font-semibold text-emerald-600">
-          {getCategoryName(category)}
+          <FaArrowLeft aria-hidden="true" className="h-3.5 w-3.5" />
         </Link>
         <h2 className="mt-3 text-3xl font-semibold text-gray-900">{t("editCategory")}</h2>
       </div>

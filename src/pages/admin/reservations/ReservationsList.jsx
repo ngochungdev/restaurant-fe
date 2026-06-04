@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import useAuthStore from "../../../stores/auth.store";
 import { toast } from "sonner";
+import ConfirmDialog from "../../../components/common/ConfirmDialog";
 import EmptyState from "../../../components/common/EmptyState";
 import LoadingState from "../../../components/common/LoadingState";
 import { useLanguage } from "../../../contexts/LanguageContext";
@@ -28,6 +29,7 @@ export default function ReservationsList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [dateFilter, setDateFilter] = useState("");
+  const [reservationToReject, setReservationToReject] = useState(null);
 
   useReservationSocket({ enabled: isAdmin });
 
@@ -51,7 +53,10 @@ export default function ReservationsList() {
   });
 
   const rejectReservationMutation = useRejectReservationMutation({
-    onSuccess: () => toast.success(t("reservationRejected")),
+    onSuccess: () => {
+      toast.success(t("reservationRejected"));
+      setReservationToReject(null);
+    },
     onError: (err) => {
       console.error(err);
       toast.error(t("rejectFailed"));
@@ -64,6 +69,13 @@ export default function ReservationsList() {
 
   const handleReject = async (id) => {
     rejectReservationMutation.mutate(id);
+  };
+
+  const confirmReject = () => {
+    const id = reservationToReject?.id || reservationToReject?._id;
+    if (!id) return;
+
+    handleReject(id);
   };
 
   const summary = useMemo(() => {
@@ -227,7 +239,7 @@ export default function ReservationsList() {
 
                     <button
                       type="button"
-                      onClick={() => handleReject(r.id || r._id)}
+                      onClick={() => setReservationToReject(r)}
                       className="rounded-md bg-red-600 px-3 py-1 text-sm text-white"
                     >
                       {t("reject")}
@@ -239,6 +251,17 @@ export default function ReservationsList() {
           </div>
         ))}
       </div>
+
+      <ConfirmDialog
+        isOpen={!!reservationToReject}
+        title={t("reject")}
+        description={t("confirmRejectReservation")}
+        cancelLabel={t("cancel")}
+        confirmLabel={rejectReservationMutation.isPending ? t("submitting") : t("reject")}
+        isPending={rejectReservationMutation.isPending}
+        onClose={() => setReservationToReject(null)}
+        onConfirm={confirmReject}
+      />
     </section>
   );
 }

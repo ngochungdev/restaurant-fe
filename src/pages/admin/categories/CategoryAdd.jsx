@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { FaArrowLeft } from "react-icons/fa";
+
 import { useLanguage } from "../../../contexts/LanguageContext";
 import { getCategoryId, useCreateCategoryMutation } from "../../../hooks/useCategoryQueries";
 import { showApiError } from "../../../utils/apiError";
@@ -24,7 +26,8 @@ export default function CategoryAdd() {
   return (
     <section className="px-6 py-10">
       <div className="mb-8">
-        <Link to="/admin/categories" className="text-sm font-semibold text-emerald-600">
+        <Link to="/admin/categories" className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600">
+          <FaArrowLeft aria-hidden="true" className="h-3.5 w-3.5" />
           {t("categoryList")}
         </Link>
         <h2 className="mt-3 text-3xl font-semibold text-gray-900">{t("addCategory")}</h2>

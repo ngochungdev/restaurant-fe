@@ -10,9 +10,11 @@ export default function CategoryForm({
 }) {
   const { t } = useLanguage();
   const [form, setForm] = useState(initialValues);
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = () => {
     if (!form.name.trim()) {
+      setErrors({ name: true });
       toast.error(t("fillCategoryFields"));
       return;
     }
@@ -27,9 +29,14 @@ export default function CategoryForm({
         <input
           type="text"
           value={form.name}
-          onChange={(event) => setForm({ ...form, name: event.target.value })}
+          onChange={(event) => {
+            setForm({ ...form, name: event.target.value });
+            setErrors({ name: false });
+          }}
           placeholder={t("categoryName")}
-          className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-emerald-500 focus:bg-white"
+          className={`mt-2 w-full rounded-2xl border px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-emerald-500 focus:bg-white ${
+            errors.name ? "border-red-400 bg-red-50" : "border-gray-200 bg-gray-50"
+          }`}
         />
       </label>
 

@@ -30,38 +30,59 @@ export default function ReservationForm() {
     totalGuest: "",
     note: "",
   });
+  const [errors, setErrors] = useState({});
+
+  const updateField = (name, value) => {
+    setFormData((current) => ({
+      ...current,
+      [name]: value,
+    }));
+    setErrors((current) => ({ ...current, [name]: false }));
+  };
+
+  const inputClassName = (hasError) =>
+    `h-14 w-full rounded-xl border bg-[#faf7f2] px-4 outline-none focus:border-orange-500 ${
+      hasError ? "border-red-400 bg-red-50" : "border-gray-200"
+    }`;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "totalGuest") {
       const digitsOnly = value.replace(/\D/g, "");
-      setFormData({
-        ...formData,
-        totalGuest: digitsOnly,
-      });
+      updateField("totalGuest", digitsOnly);
       return;
     }
 
     if (name === "reservationDate" && value && value < getTodayInputDate()) {
       toast.error(t('dateFromToday'));
-      setFormData({
-        ...formData,
-        reservationDate: "",
-      });
+      updateField("reservationDate", "");
+      setErrors((current) => ({ ...current, reservationDate: true }));
       return;
     }
 
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    updateField(name, value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const todayStr = getTodayInputDate();
+    const nextErrors = {
+      customerName: !formData.customerName.trim(),
+      email: !formData.email.trim(),
+      phone: !formData.phone.trim(),
+      reservationDate: !formData.reservationDate || formData.reservationDate < todayStr,
+      reservationTime: !formData.reservationTime,
+      totalGuest: !formData.totalGuest || Number(formData.totalGuest) <= 0,
+    };
+
+    if (Object.values(nextErrors).some(Boolean)) {
+      setErrors(nextErrors);
+      toast.error(t('fillReservationFields'));
+      return;
+    }
+
     if (!formData.reservationDate || formData.reservationDate < todayStr) {
       toast.error(t('dateFromToday'));
       return;
@@ -85,7 +106,7 @@ export default function ReservationForm() {
         placeholder={t('fullName')}
         value={formData.customerName}
         onChange={handleChange}
-        className="h-14 w-full rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
+        className={inputClassName(errors.customerName)}
       />
 
       <input
@@ -95,7 +116,7 @@ export default function ReservationForm() {
         value={formData.email}
         onChange={handleChange}
         autoComplete="email"
-        className="h-14 w-full rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
+        className={inputClassName(errors.email)}
       />
 
       <input
@@ -103,7 +124,7 @@ export default function ReservationForm() {
         placeholder={t('phoneNumber')}
         value={formData.phone}
         onChange={handleChange}
-        className="h-14 w-full rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
+        className={inputClassName(errors.phone)}
       />
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -119,7 +140,7 @@ export default function ReservationForm() {
             onChange={handleChange}
             onFocus={(e) => e.target.showPicker?.()}
             min={getTodayInputDate()}
-            className="h-14 w-full appearance-none rounded-xl border border-gray-200 bg-[#faf7f2] px-4 text-gray-900 outline-none focus:border-orange-500"
+            className={`${inputClassName(errors.reservationDate)} appearance-none text-gray-900`}
           />
         </label>
 
@@ -134,7 +155,7 @@ export default function ReservationForm() {
             aria-label={t('selectTime')}
             onChange={handleChange}
             onFocus={(e) => e.target.showPicker?.()}
-            className="h-14 w-full appearance-none rounded-xl border border-gray-200 bg-[#faf7f2] px-4 text-gray-900 outline-none focus:border-orange-500"
+            className={`${inputClassName(errors.reservationTime)} appearance-none text-gray-900`}
           />
         </label>
       </div>
@@ -148,7 +169,7 @@ export default function ReservationForm() {
         inputMode="numeric"
         pattern="[0-9]*"
         min={1}
-        className="h-14 w-full rounded-xl border border-gray-200 bg-[#faf7f2] px-4 outline-none focus:border-orange-500"
+        className={inputClassName(errors.totalGuest)}
       />
 
       <textarea

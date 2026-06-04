@@ -25,6 +25,7 @@ export default function MenuForm({
     ...initialValues,
     price: formatPriceInput(initialValues.price),
   });
+  const [errors, setErrors] = useState({});
   const [imageData, setImageData] = useState("");
   const [preview, setPreview] = useState(initialImage);
   const {
@@ -43,6 +44,8 @@ export default function MenuForm({
     const file = event.target.files?.[0];
     if (!file) return;
 
+    setErrors((current) => ({ ...current, image: false }));
+
     const reader = new FileReader();
     reader.onload = () => {
       setImageData(reader.result || "");
@@ -52,7 +55,16 @@ export default function MenuForm({
   };
 
   const handleSubmit = () => {
-    if (!form.name || !form.price || !form.category_id || !form.description || (requireImage && !imageData)) {
+    const nextErrors = {
+      name: !form.name.trim(),
+      price: !form.price,
+      category_id: !form.category_id,
+      description: !form.description.trim(),
+      image: requireImage && !imageData,
+    };
+
+    if (Object.values(nextErrors).some(Boolean)) {
+      setErrors(nextErrors);
       toast.error(requireImage ? t("fillAllFields") : t("fillMenuFields"));
       return;
     }
@@ -64,6 +76,18 @@ export default function MenuForm({
     });
   };
 
+  const updateFormField = (name, value) => {
+    setForm((current) => ({ ...current, [name]: value }));
+    setErrors((current) => ({ ...current, [name]: false }));
+  };
+
+  const fieldClassName = (hasError) =>
+    `mt-2 w-full rounded-2xl border px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-emerald-500 focus:bg-white ${
+      hasError
+        ? "border-red-400 bg-red-50"
+        : "border-gray-200 bg-gray-50"
+    }`;
+
   return (
     <div className="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
       <div className="grid gap-6">
@@ -72,9 +96,9 @@ export default function MenuForm({
           <input
             type="text"
             value={form.name}
-            onChange={(event) => setForm({ ...form, name: event.target.value })}
+            onChange={(event) => updateFormField("name", event.target.value)}
             placeholder={t("menuName")}
-            className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-emerald-500 focus:bg-white"
+            className={fieldClassName(errors.name)}
           />
         </label>
 
@@ -84,9 +108,9 @@ export default function MenuForm({
             type="text"
             inputMode="numeric"
             value={form.price}
-            onChange={(event) => setForm({ ...form, price: formatPriceInput(event.target.value) })}
+            onChange={(event) => updateFormField("price", formatPriceInput(event.target.value))}
             placeholder={t("price")}
-            className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-emerald-500 focus:bg-white"
+            className={fieldClassName(errors.price)}
           />
         </label>
 
@@ -103,9 +127,9 @@ export default function MenuForm({
           </div>
           <select
             value={form.category_id}
-            onChange={(event) => setForm({ ...form, category_id: event.target.value })}
+            onChange={(event) => updateFormField("category_id", event.target.value)}
             disabled={isCategoriesLoading}
-            className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-emerald-500 focus:bg-white"
+            className={fieldClassName(errors.category_id)}
           >
             <option value="">
               {isCategoriesLoading ? t("loadingCategories") : t("selectCategory")}
@@ -131,10 +155,10 @@ export default function MenuForm({
           <span className="text-sm font-medium text-gray-700">{t("description")}</span>
           <textarea
             value={form.description}
-            onChange={(event) => setForm({ ...form, description: event.target.value })}
+            onChange={(event) => updateFormField("description", event.target.value)}
             placeholder={t("description")}
             rows={4}
-            className="mt-2 w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-emerald-500 focus:bg-white"
+            className={fieldClassName(errors.description)}
           />
         </label>
 
@@ -145,7 +169,9 @@ export default function MenuForm({
             accept="image/*"
             onChange={handleImageChange}
             aria-label={t("uploadImage")}
-            className="mt-2 w-full text-sm text-gray-700 file:rounded-xl file:border file:border-gray-300 file:bg-white file:px-4 file:py-2 file:text-sm file:font-medium file:text-gray-700 hover:file:bg-gray-100"
+            className={`mt-2 w-full rounded-2xl border p-3 text-sm text-gray-700 file:rounded-xl file:border file:border-gray-300 file:bg-white file:px-4 file:py-2 file:text-sm file:font-medium file:text-gray-700 hover:file:bg-gray-100 ${
+              errors.image ? "border-red-400 bg-red-50" : "border-transparent"
+            }`}
           />
         </label>
 
