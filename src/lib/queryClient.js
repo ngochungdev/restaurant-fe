@@ -11,6 +11,7 @@ export const queryClient = new QueryClient({
 });
 
 export const queryKeys = {
+  aboutUs: ["about-us"],
   categories: ["categories"],
   leads: ["leads"],
   menus: ["menus"],
