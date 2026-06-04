@@ -3,14 +3,28 @@ import { useState } from "react";
 import useAuthStore from "../../stores/auth.store";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { restaurantConfig } from "../../config/restaurant";
+import { authService } from "../../services/auth.service";
+import { useAdminNotifications } from "../../hooks/useAdminNotifications";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const logout = useAuthStore((state) => state.logout);
+  const refreshToken = useAuthStore((state) => state.refreshToken);
+  const user = useAuthStore((state) => state.user);
   const { locale, setLocale, t } = useLanguage();
 
-  const handleLogout = () => {
+  useAdminNotifications({ enabled: user?.role === "ADMIN" });
+
+  const handleLogout = async () => {
+    if (refreshToken) {
+      try {
+        await authService.logout(refreshToken);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
     logout();
     setOpen(false);
     navigate("/");

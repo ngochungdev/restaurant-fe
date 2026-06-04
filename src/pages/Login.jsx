@@ -18,7 +18,7 @@ export default function Login() {
   useEffect(() => {
     if (isAuthenticated) {
       if (user && user.role === "ADMIN") {
-        navigate("/admin/menu");
+        navigate("/admin/dashboard");
       } else {
         navigate("/");
       }
@@ -41,7 +41,7 @@ export default function Login() {
       const res = await authService.login(form);
       loginStore(res);
       if (res.user && res.user.role === "ADMIN") {
-        navigate("/admin/menu");
+        navigate("/admin/dashboard");
       } else {
         navigate("/");
       }

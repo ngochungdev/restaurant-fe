@@ -1,4 +1,5 @@
 import { io } from "socket.io-client";
+import { getAccessToken } from "../utils/authTokens";
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || import.meta.env.VITE_API_URL;
 const SOCKET_PATH = import.meta.env.VITE_SOCKET_PATH || "/socket.io";
@@ -19,7 +20,7 @@ export const getSocket = () => {
     });
   }
 
-  const token = localStorage.getItem("token");
+  const token = getAccessToken();
   socket.auth = token ? { token } : {};
 
   return socket;
